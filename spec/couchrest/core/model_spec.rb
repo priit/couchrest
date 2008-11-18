@@ -45,7 +45,7 @@ class Article < CouchRest::Model
   view_by :tags,
     :map => 
       "function(doc) {
-        if (doc['couchrest-type'] == 'Article' && doc.tags) {
+        if (doc['couchrest_type'] == 'Article' && doc.tags) {
           doc.tags.forEach(function(tag){
             emit(tag, 1);
           });
@@ -276,7 +276,7 @@ describe CouchRest::Model do
     end
     
     it "should set the type" do
-      @obj['couchrest-type'].should == 'Basic'
+      @obj['couchrest_type'].should == 'Basic'
     end
   end
 

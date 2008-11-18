@@ -27,7 +27,7 @@ module CouchRest
   #     view_by :tags,
   #       :map => 
   #         "function(doc) {
-  #           if (doc['couchrest-type'] == 'Article' && doc.tags) {
+  #           if (doc['couchrest_type'] == 'Article' && doc.tags) {
   #             doc.tags.forEach(function(tag){
   #               emit(tag, 1);
   #             });
@@ -76,7 +76,7 @@ module CouchRest
       apply_defaults
       cast_keys
       unless self['_id'] && self['_rev']
-        self['couchrest-type'] = self.class.to_s
+        self['couchrest_type'] = self.class.to_s
       end
     end
 
@@ -108,7 +108,7 @@ module CouchRest
         new(doc)
       end
 
-      # Load all documents that have the "couchrest-type" field equal to the
+      # Load all documents that have the "couchrest_type" field equal to the
       # name of the current class. Take thes the standard set of
       # CouchRest::Database#view options.
       # def all opts = {}
@@ -220,7 +220,7 @@ module CouchRest
       #     view_by :tags,                                                
       #       :map =>                                                     
       #         "function(doc) {                                          
-      #           if (doc['couchrest-type'] == 'Post' && doc.tags) {                   
+      #           if (doc['couchrest_type'] == 'Post' && doc.tags) {                   
       #             doc.tags.forEach(function(tag){                       
       #               emit(doc.tag, 1);                                   
       #             });                                                   
@@ -236,7 +236,7 @@ module CouchRest
       # function:
       #  
       #   function(doc) {
-      #     if (doc['couchrest-type'] == 'Post' && doc.date) {
+      #     if (doc['couchrest_type'] == 'Post' && doc.date) {
       #       emit(doc.date, null);
       #     }
       #   }
@@ -293,7 +293,7 @@ module CouchRest
       #     key_emit = doc_keys.length == 1 ? "#{doc_keys.first}" : "[#{doc_keys.join(', ')}]"
       #     map_function = <<-JAVASCRIPT
       #     function(doc) {
-      #       if (#{!ducktype ? "doc['couchrest-type'] == '#{type}' && " : ""}#{key_protection}) {
+      #       if (#{!ducktype ? "doc['couchrest_type'] == '#{type}' && " : ""}#{key_protection}) {
       #         emit(#{key_emit}, null);
       #       }
       #     }
@@ -388,7 +388,7 @@ module CouchRest
           "views" => {
             'all' => {
               'map' => "function(doc) {
-                if (doc['couchrest-type'] == '#{self.to_s}') {
+                if (doc['couchrest_type'] == '#{self.to_s}') {
                   emit(null,null);
                 }
               }"
